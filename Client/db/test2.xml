@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-16"?>
+<plist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <subject>算数</subject>
+  <subheading>小学校レベル</subheading>
+  <problems>
+    <problem>
+      <statement>4+2は6である。</statement>
+      <commentary>考えるのが面倒臭い。多分正解だと思うよ。</commentary>
+      <ans>1</ans>
+    </problem>
+    <problem>
+      <statement>5*5-6は19である。</statement>
+      <commentary>あってるんじゃね？</commentary>
+      <ans>1</ans>
+    </problem>
+    <problem>
+      <statement>あー眠い。ところで、7*7-9は40だよね？</statement>
+      <commentary>はい。</commentary>
+      <ans>1</ans>
+    </problem>
+  </problems>
+</plist>
