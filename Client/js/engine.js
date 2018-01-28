@@ -49,6 +49,14 @@ function DebugMsg(msg)
 }
 
 
+function DebugMsgObj(obj)
+{
+	console.log("[DEBUG OBJECT]");
+	console.log(obj);
+	return;
+}
+
+
 // 一度ボタンを押したらその後別のボタンを押しても意味無くする。
 var g_flagSelect = 0;
 var g_countSuccess = 0;
@@ -80,11 +88,48 @@ function ClickFalse()
 
 function Reset()
 {
+	g_countSuccess = 0;
+	g_flagSelect = 0;
+
+	g_index = 0;
 }
 
 
+// ステータスバー更新
+function UpdateStatusBar()
+{
+	$("#app-q-score-text").text(
+		g_db.length  + " 問中 " +
+		g_countSuccess + " 問正解 [正答率 : " +
+		Math.floor(g_countSuccess / g_db.length * 100) + "%]");
+}
+
+
+// 出題を行う
+var g_index = 0; // 今なん問目か
 function SetProblem()
 {
+	if (g_index >= g_db.length) {
+		// すべての問題を処理した。
+		SetFinish();
+		return;
+	}
+
+	$("#app-problem-statement").text(g_db[g_index].statement);
+	$("#app-problem-commentary").text(g_db[g_index].commentary);
+
+	g_flagSelect = 0; // ボタンを再び押せるように。
+	g_index++;
+	$("#app-q-ans").hide();
+
+	// ステータスバー更新
+	UpdateStatusBar();
+}
+
+
+function SetFinish()
+{
+	// 全ての問題を処理した。
 }
 
 
@@ -144,7 +189,7 @@ $(document).ready(function() {
 			$("#app-card-err").show();
 		},
 		success : function(data) {
-			DebugMsg(data);
+			DebugMsgObj(data);
 			// タイトルをセット
 			$("#app-subject").text($(data).find("subject").text());
 			$("#app-subheading").text($(data).find("subheading").text());
@@ -156,6 +201,7 @@ $(document).ready(function() {
 				o.commentary = $(this).find("commentary").text();
 				o.ans = $(this).find("ans").text();
 				g_db.push(o);
+				DebugMsgObj(o);
 			});
 
 
