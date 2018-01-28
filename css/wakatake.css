@@ -1,0 +1,12 @@
+﻿@charset "UTF-8";
+
+
+#nav-bar-back {
+	/* IE系で背景画像が表示されないため追加 */
+	background-color:transparent;
+	background-image: url('../images/header-bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size:auto 60%;
+}
+
