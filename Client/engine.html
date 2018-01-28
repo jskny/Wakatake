@@ -9,6 +9,7 @@
 
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/engine.js"></script>
 
 	<title>若竹 - engine</title>
 </head>
@@ -17,36 +18,38 @@
 
 <div id="nav-bar-back"class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
 	<nav class="my-2 my-md-0 mr-md-3">
-		<a class="p-2 text-dark" href="#">Home</a>
-		<a class="p-2 text-dark" href="#">List</a>
-		<a class="p-2 text-dark" href="#">About</a>
+		<a class="p-2 text-dark" href="index.html">Home</a>
+		<a class="p-2 text-dark" href="list.html">List</a>
+		<a class="p-2 text-dark" href="about.html">About</a>
 	</nav>
 </div>
 
 
 <div class="container">
-	<div id="index-banner" class="center">
-		<h5 id="q-title"></h5>
+	<div id="app-card-err" class="card border-danger mb-3 text-center" style="display: none;">
+		<div class="card-header bg-transparent">Error</div>
+		<div class="card-body text-danger">
+			<h5 class="card-title">Runtime Error</h5>
+			<p id="app-card-err-msg" class="card-text">no text.</p>
+			<a href="list.html" class="btn btn-outline-danger btn-block">Back</a>
+		</div>
 	</div>
-</div> <!-- /container -->
 
-
-<div class="container">
-	<div class="card text-center">
-		<div class="card-header">
+	<div id="app-card-main" class="card text-center" style="display: none;">
+		<div id="app-subject" class="card-header">
 			憲法
 		</div>
 		<div class="card-block">
-			<h4 class="card-title">統治</h4>
-			<p class="card-text">ほげほげほげふがふがふがふが</p>
+			<h4 id="app-subheading" class="card-title">統治</h4>
+			<p id="app-problem-statement" class="card-text">ほげほげほげふがふがふがふが</p>
 			<div class="row">
 				<div class="col"><a href="" class="btn btn-primary btn-lg">〇</a></div>
 				<div class="col"><a href="" class="btn btn-primary btn-lg">×</a></div>
 			</div>
 
-			<div id="q-ans" class="border-top">
-				<h4 class="card-title">不正解</h4>
-				<p class="card-text">ほげほげほげふがふがふがふが</p>
+			<div id="q-ans" class="border-top" style="display: none;">
+				<h4 id="app-q-ans-result" class="card-title">不正解</h4>
+				<p id="app-problem-commentary" class="card-text">ほげほげほげふがふがふがふが</p>
 				<a href="" class="btn btn-success">次へ</a>
 			</div>
 		</div>

@@ -17,6 +17,12 @@ namespace WakatakeManager
 		[XmlRoot("plist")]
 		public class PList
 		{
+			[XmlElement("subject")]
+			public string Subject { get; set; }
+			[XmlElement("subheading")]
+			public string Subheading { get; set; }
+
+
 			[XmlArray("problems")]
 			[XmlArrayItem("problem")]
 			public List<Problem> problems { get; set; }
@@ -43,6 +49,8 @@ namespace WakatakeManager
 			InitializeComponent();
 
 			database = new PList();
+			database.Subject = "主たる科目名";
+			database.Subheading = "副たる科目名";
 			database.problems = new List<Problem>();
 		}
 
