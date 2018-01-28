@@ -44,7 +44,7 @@ function Shuffle(array)
 // デバッグ出力用
 function DebugMsg(msg)
 {
-	console.log("[DEBUG]\t" + msg);
+	console.log("[DEBUG] " + msg);
 	return;
 }
 
@@ -102,7 +102,6 @@ $(document).ready(function() {
 	}
 
 	DebugMsg("parameter id is " + params["id"]);
-	$("#app-card-main").show();
 
 	// ボタンの関連付け
 	$("#app-btn-q-true").click(ClickTrue);
@@ -113,10 +112,60 @@ $(document).ready(function() {
 		var p = $("#app-card-main").offset().top;
 		$('html,body').animate({ scrollTop: p }, 'fast');
 
-
 		// 新しい問題をセットするか、すべての問題を処理していた時はクリア画面を表示する。
 		SetProblem();
 		return (0);
+	});
+
+	// データを取得する。
+	// 必要ないけど一応、ディレクトリトラバーサル対策でピリオドを許容しない。
+	var urlXML = params["id"];
+	urlXML = urlXML.replace(/\./g , "ぽよ！");
+	urlXML = "db/" + urlXML + ".xml";
+	DebugMsg(urlXML);
+
+	$.ajax({
+		url: urlXML,
+		async: true,
+		cache: false,
+		dataType: "xml",
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			if (XMLHttpRequest.status == 200) {
+				// それ成功。
+				return;
+			}
+
+
+			$("#app-card-err-msg").html(
+				"parameter : " + urlXML + "<br>" +
+				"XMLHttpRequest : " + XMLHttpRequest.status + "<br>" +
+				"textStatus : " + textStatus + "<br>" +
+				"errorThrown : " + errorThrown.message);
+			$("#app-card-err").show();
+		},
+		success : function(data) {
+			DebugMsg(data);
+			// タイトルをセット
+			$("#app-subject").text($(data).find("subject").text());
+			$("#app-subheading").text($(data).find("subheading").text());
+
+			// 問題を取得
+			$(data).find("problem").each(function(){
+				var o = new Object();
+				o.statement = $(this).find("statement").text();
+				o.commentary = $(this).find("commentary").text();
+				o.ans = $(this).find("ans").text();
+				g_db.push(o);
+			});
+
+
+			g_db = Shuffle(g_db);
+			SetProblem();
+			$("#app-card-main").show();
+		},
+		complete : function(data) {
+			$("#app-card-loading").hide();
+		}
 	});
 });
 

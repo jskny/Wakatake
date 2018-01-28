@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <subject>主たる科目名</subject>
+  <subheading>副たる科目名</subheading>
+  <problems>
+    <problem>
+      <statement>この問題を作成している時、出題者はとても眠い。</statement>
+      <commentary>確かに眠気を感じてはいたが、「とても」と形容するほどに眠気が強かったとは考えられない。しかし、「とても」という言葉の定義次第で本問は正答ともなるであろう。</commentary>
+      <ans>0</ans>
+    </problem>
+    <problem>
+      <statement>コーヒーと緑茶だと、コーヒーが好きである。</statement>
+      <commentary>そもそも、私は「どちらも」飲むのであって、コーヒー「だけ」を好きと捉えかねない本問は誤りである。</commentary>
+      <ans>0</ans>
+    </problem>
+    <problem>
+      <statement>六法ちゃんはかわいい。かわいいは正義。六法ちゃんは正義！</statement>
+      <commentary>その通りである。</commentary>
+      <ans>1</ans>
+    </problem>
+  </problems>
+</plist>
