@@ -82,6 +82,7 @@ namespace WakatakeManager
 			var serializer = new XmlSerializer(typeof(PList));
 			serializer.Serialize(writer, this.database);
 			this.textBoxOutputXML.Text = writer.ToString();
+			this.textBoxOutputXML.Text = this.textBoxOutputXML.Text.Replace("encoding=\"utf-16\"", "encoding=\"utf-8\"");
 
 			this.textBoxQText.Text = "";
 			this.textBoxQAns.Text = "";
