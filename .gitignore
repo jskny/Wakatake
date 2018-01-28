@@ -1,6 +1,6 @@
 # Not include files.
 
-WakatakeManager/WakatakeManager/bin/
-WakatakeManager/WakatakeManager/obj/
-WakatakeManager/.vs/
+Manager/WakatakeManager/bin/
+Manager/WakatakeManager/obj/
+Manager/.vs/
 
