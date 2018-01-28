@@ -8,6 +8,7 @@
 'use strict';
 
 
+// HTMLファイルにURLで渡されたパラメーターを取得する。
 // http://ameblo.jp/linking/entry-10353146034.html
 function GetUrlVars()
 {
@@ -23,6 +24,7 @@ function GetUrlVars()
 }
 
 
+// 配列のシャッフル
 // http://h2ham.net/javascript-%E3%81%A7%E9%85%8D%E5%88%97%E3%81%AE%E3%82%B7%E3%83%A3%E3%83%83%E3%83%95%E3%83%AB
 function Shuffle(array)
 {
@@ -39,6 +41,53 @@ function Shuffle(array)
 }
 
 
+// デバッグ出力用
+function DebugMsg(msg)
+{
+	console.log("[DEBUG]\t" + msg);
+	return;
+}
+
+
+// 一度ボタンを押したらその後別のボタンを押しても意味無くする。
+var g_flagSelect = 0;
+var g_countSuccess = 0;
+function ClickTrue()
+{
+	if (g_flagSelect) {
+		return;
+	}
+
+	alert("CLICKED TRUE.");
+
+	$("#app-q-ans").show();
+	g_flagSelect = 1;
+}
+
+
+function ClickFalse()
+{
+	if (g_flagSelect) {
+		return;
+	}
+
+	alert("CLICKED FALSE.");
+
+	$("#app-q-ans").show();
+	g_flagSelect = 1;
+}
+
+
+function Reset()
+{
+}
+
+
+function SetProblem()
+{
+}
+
+
 // 問題リスト
 var g_db = [];
 // engine.html?id=読み込むDBのID
@@ -52,6 +101,22 @@ $(document).ready(function() {
 		return;
 	}
 
+	DebugMsg("parameter id is " + params["id"]);
 	$("#app-card-main").show();
+
+	// ボタンの関連付け
+	$("#app-btn-q-true").click(ClickTrue);
+	$("#app-btn-q-false").click(ClickFalse);
+	$("#app-btn-q-retry").click(Reset);
+	$("#app-btn-q-next").click(function () {
+		// ページ・トップへスクロール
+		var p = $("#app-card-main").offset().top;
+		$('html,body').animate({ scrollTop: p }, 'fast');
+
+
+		// 新しい問題をセットするか、すべての問題を処理していた時はクリア画面を表示する。
+		SetProblem();
+		return (0);
+	});
 });
 
