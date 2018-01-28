@@ -66,7 +66,12 @@ function ClickTrue()
 		return;
 	}
 
-	alert("CLICKED TRUE.");
+	$("#app-q-ans-result").text("不正解");
+	if (g_db[g_index - 1].ans == "1") {
+		// 正解
+		$("#app-q-ans-result").text("正解");
+		g_countSuccess++;
+	}
 
 	$("#app-q-ans").show();
 	g_flagSelect = 1;
@@ -79,7 +84,12 @@ function ClickFalse()
 		return;
 	}
 
-	alert("CLICKED FALSE.");
+	$("#app-q-ans-result").text("不正解");
+	if (g_db[g_index - 1].ans == "0") {
+		// 正解
+		$("#app-q-ans-result").text("正解");
+		g_countSuccess++;
+	}
 
 	$("#app-q-ans").show();
 	g_flagSelect = 1;
@@ -92,6 +102,12 @@ function Reset()
 	g_flagSelect = 0;
 
 	g_index = 0;
+
+	g_db = Shuffle(g_db);
+	$("#app-card-q-result").hide();
+	$("#app-card-q-main").show();
+	// 再度出題
+	SetProblem();
 }
 
 
@@ -106,7 +122,7 @@ function UpdateStatusBar()
 
 
 // 出題を行う
-var g_index = 0; // 今なん問目か
+var g_index = 0; // 今何問目か
 function SetProblem()
 {
 	if (g_index >= g_db.length) {
@@ -130,6 +146,33 @@ function SetProblem()
 function SetFinish()
 {
 	// 全ての問題を処理した。
+	UpdateStatusBar();
+	$("#app-card-q-main").hide();
+
+	var val = Math.floor(g_countSuccess / g_db.length * 100);
+	$("#app-card-q-result-score").text(g_db.length  + " 問中 " + g_countSuccess + " 問正解 [正答率 : " + val + "%]");
+	if (val < 20) {
+		$("#app-card-q-result-comment").text("もうちょっと頑張りましょう！");
+	}
+	else if (val < 40) {
+		$("#app-card-q-result-comment").text("だんだん手ごたえをつかんできましたか？");
+	}
+	else if (val < 60) {
+		$("#app-card-q-result-comment").text("慣れてきているからこそ基本を大切にしましょう。");
+	}
+	else if (val < 80) {
+		$("#app-card-q-result-comment").text("ここから先が踏ん張りどころですね。");
+	}
+	else if (val < 100) {
+		$("#app-card-q-result-comment").text("もうこの分野の得点は安定していますので、他の分野の勉強をするとよいでしょう。");
+	}
+	else {
+		$("#app-card-q-result-comment").text(	"お疲れ様です。当たり前のように全問正解しましたね。" +
+							"もうこの分野の得点は安定していますので、他の分野の勉強をするとよいでしょう。");	
+	}
+
+
+	$("#app-card-q-result").show();
 }
 
 
@@ -181,6 +224,7 @@ $(document).ready(function() {
 			}
 
 
+			$("#app-card-loading").hide();
 			$("#app-card-err-msg").html(
 				"parameter : " + urlXML + "<br>" +
 				"XMLHttpRequest : " + XMLHttpRequest.status + "<br>" +
